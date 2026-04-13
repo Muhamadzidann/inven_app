@@ -43,9 +43,9 @@
         }
 
         .bg-dark-blue { background: #0d1b4c; }
-        .bg-orange { background: #f4a300; }
-        .bg-purple { background: #a9a6d8; }
-        .bg-green { background: #66c2a5; }
+        .bg-orange { background: #7a612d; }
+        .bg-purple { background: #0d1b4c; }
+        .bg-green { background: #7a612d; }
 
         footer {
             font-size: 14px;

@@ -12,43 +12,86 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $admin = User::create([
-            'name' => 'Administrator',
+        // =======================
+        // USER SEEDER
+        // =======================
+        User::updateOrCreate([
             'email' => 'admin@smkwikrama.sch.id',
-            'password' => Hash::make('temp-seed-placeholder'),
+        ], [
+            'name' => 'Administrator',
+            'password' => Hash::make('admin'),
             'role' => 'admin',
             'password_is_default' => true,
         ]);
-        $admin->password = User::defaultPasswordPlain($admin);
-        $admin->save();
 
-        $operator = User::create([
-            'name' => 'Operator',
+        User::updateOrCreate([
             'email' => 'operator@smkwikrama.sch.id',
-            'password' => Hash::make('temp-seed-placeholder'),
+        ], [
+            'name' => 'Operator',
+            'password' => Hash::make('operator'),
             'role' => 'operator',
             'password_is_default' => true,
         ]);
-        $operator->password = User::defaultPasswordPlain($operator);
-        $operator->save();
 
-        $cat = Category::create([
-            'name' => 'Elektronik',
-            'division_pj' => 'Sarpras',
+        User::updateOrCreate([
+            'email' => 'staff@smkwikrama.sch.id',
+        ], [
+            'name' => 'Staff',
+            'password' => Hash::make('staff'),
+            'role' => 'staff',
+            'password_is_default' => true,
         ]);
 
-        Item::create([
-            'category_id' => $cat->id,
-            'name' => 'Proyektor Epson',
-            'total' => 10,
-            'repair' => 1,
-        ]);
+        // =======================
+        // CATEGORY SEEDER (AMAN)
+        // =======================
+        $cat = Category::updateOrCreate(
+            ['name' => 'Elektronik'],
+            ['division_pj' => 'Sarpras']
+        );
 
-        Item::create([
-            'category_id' => $cat->id,
-            'name' => 'Speaker Portable',
-            'total' => 5,
-            'repair' => 0,
-        ]);
+        $cat2 = Category::updateOrCreate(
+            ['name' => 'Alat Dapur'],
+            ['division_pj' => 'Sarpras']
+        );
+
+        // =======================
+        // ITEM SEEDER (AMAN)
+        // =======================
+        Item::updateOrCreate(
+            ['name' => 'Kompor Gas'],
+            [
+                'category_id' => $cat2->id,
+                'total' => 3,
+                'repair' => 0,
+            ]
+        );
+
+        Item::updateOrCreate(
+            ['name' => 'Panci Stainless'],
+            [
+                'category_id' => $cat2->id,
+                'total' => 7,
+                'repair' => 1,
+            ]
+        );
+
+        Item::updateOrCreate(
+            ['name' => 'Proyektor Epson'],
+            [
+                'category_id' => $cat->id,
+                'total' => 10,
+                'repair' => 1,
+            ]
+        );
+
+        Item::updateOrCreate(
+            ['name' => 'Speaker Portable'],
+            [
+                'category_id' => $cat->id,
+                'total' => 5,
+                'repair' => 0,
+            ]
+        );
     }
 }
